@@ -95,7 +95,9 @@ public class FormReclamo extends AppCompatActivity {
         editTextTitulo.setText(reclamo.getTitulo());
         editTextDetalle.setText(reclamo.getDetalle());
         lugar = reclamo.getLugar();
-        editTextLugar.setText(lugar.toString());
+        if(lugar != null) {
+            editTextLugar.setText(lugar.toString());
+        }
         spinnerTipoReclamo.setSelection(((ArrayAdapter) spinnerTipoReclamo.getAdapter()).getPosition(reclamo.getTipo()));
     }
 
