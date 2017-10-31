@@ -1,10 +1,12 @@
 package ar.edu.utn.frsf.isi.dam.reclamosonlinelab04.modelo;
 
+import java.io.Serializable;
+
 /**
  * Created by mdominguez on 26/10/17.
  */
 
-public class Estado {
+public class Estado implements Serializable{
     private Integer id;
     private String tipo;
 
