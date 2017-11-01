@@ -25,6 +25,8 @@ public class FormReclamo extends AppCompatActivity {
 
     public static final int RESULT_DELETED = 2;
 
+    public static final int MAP_REQ = 1;
+
     private Intent intentOrigen;
 
     private EditText editTextTitulo;
@@ -40,6 +42,7 @@ public class FormReclamo extends AppCompatActivity {
 
     private Reclamo reclamo;
     private LatLng lugar;
+    private List<TipoReclamo> listaTiposReclamo;
 
     private boolean flagNuevoReclamo;
 
@@ -85,10 +88,23 @@ public class FormReclamo extends AppCompatActivity {
     }
 
     private void inicializarSpinner() {
-        ArrayList<TipoReclamo> tiposReclamo = new ArrayList<>();
-        tiposReclamo.addAll(reclamoDao.tiposReclamo());
-        ArrayAdapter<TipoReclamo> adapterTiposReclamo = new ArrayAdapter<TipoReclamo>(this, android.R.layout.simple_spinner_item, tiposReclamo);
+        listaTiposReclamo = new ArrayList<>();
+        ArrayAdapter<TipoReclamo> adapterTiposReclamo = new ArrayAdapter<TipoReclamo>(this, android.R.layout.simple_spinner_item, listaTiposReclamo);
         spinnerTipoReclamo.setAdapter(adapterTiposReclamo);
+        obtenerTiposReclamo();
+    }
+
+    private void obtenerTiposReclamo() {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                List<TipoReclamo> rec = reclamoDao.tiposReclamo();
+                listaTiposReclamo.clear();
+                listaTiposReclamo.addAll(rec);
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
     }
 
     private void mostrarDatosReclamo() {
@@ -104,10 +120,8 @@ public class FormReclamo extends AppCompatActivity {
     private class ElegirLugarListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            // TODO implementar
-            // Hay que hacer el intent para la actividad del mapa
-            // el lugar elegido ponerlo a la variable "lugar"
-            // actualizar el editTextLugar
+            Intent intent = new Intent(FormReclamo.this,MapsActivity.class);
+            startActivityForResult(intent, MAP_REQ);
         }
     }
 
@@ -168,6 +182,16 @@ public class FormReclamo extends AppCompatActivity {
         public void onClick(View view) {
             setResult(RESULT_CANCELED, intentOrigen);
             finish();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == MAP_REQ) {
+            if(resultCode == RESULT_OK) {
+                lugar = data.getParcelableExtra("lugar");
+                editTextLugar.setText(lugar.toString());
+            }
         }
     }
 }
