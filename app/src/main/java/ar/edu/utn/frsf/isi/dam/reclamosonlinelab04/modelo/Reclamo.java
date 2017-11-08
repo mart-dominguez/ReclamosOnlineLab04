@@ -1,20 +1,22 @@
 package ar.edu.utn.frsf.isi.dam.reclamosonlinelab04.modelo;
 
+import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by mdominguez on 26/10/17.
  */
 
-public class Reclamo {
+public class Reclamo implements Serializable{
     private Integer id;
     private String titulo;
     private String detalle;
     private Date fecha;
     private TipoReclamo tipo;
-
     private Estado estado;
+    private LatLng lugar;
 
 
     // private foto
@@ -22,13 +24,14 @@ public class Reclamo {
     public Reclamo() {
     }
 
-    public Reclamo(Integer id, String titulo, String detalle, Date fecha, TipoReclamo tipo, Estado estado) {
+    public Reclamo(Integer id, String titulo, String detalle, Date fecha, TipoReclamo tipo, Estado estado, LatLng lugar) {
         this.id = id;
         this.titulo = titulo;
         this.detalle = detalle;
         this.fecha = fecha;
         this.tipo = tipo;
         this.estado = estado;
+        this.lugar = lugar;
     }
 
     public Integer getId() {
@@ -79,5 +82,11 @@ public class Reclamo {
         this.estado = estado;
     }
 
+    public LatLng getLugar() {
+        return lugar;
+    }
 
+    public void setLugar(LatLng lugar) {
+        this.lugar = lugar;
+    }
 }

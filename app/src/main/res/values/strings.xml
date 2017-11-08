@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ReclamosOnlineLab04</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="Nuevo_Reclamo_Guardado">El nuevo reclamo ha sido guardado</string>
+    <string name="Nuevo_Reclamo_Cancelado">El nuevo reclamo no ha sido guardado</string>
+    <string name="Reclamo_Actualizado">El reclamo ha sido actualizado</string>
+    <string name="Actualizacion_Reclamo_Cancelada">El reclamo no ha sido actualizado</string>
+    <string name="Reclamo_Eliminado">El reclamo ha sido eliminado</string>
 </resources>
